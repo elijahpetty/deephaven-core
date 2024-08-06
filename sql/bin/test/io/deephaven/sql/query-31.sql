@@ -1,4 +1,0 @@
-SELECT DISTINCT
-  Id
-FROM
-  books

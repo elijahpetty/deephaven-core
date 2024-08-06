@@ -1,8 +1,0 @@
-{
-  "ciphers": {
-    "type": "explicit",
-    "values": [
-      "TLS_AES_128_GCM_SHA256"
-    ]
-  }
-}

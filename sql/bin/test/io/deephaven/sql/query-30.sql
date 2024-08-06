@@ -1,4 +1,0 @@
-SELECT DISTINCT
-  *
-FROM
-  books

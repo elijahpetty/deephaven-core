@@ -1,7 +1,0 @@
-{
-  "trust": {
-    "type": "truststore",
-    "path": "ca.p12",
-    "password": "secret"
-  }
-}

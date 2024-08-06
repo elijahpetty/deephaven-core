@@ -1,3 +1,0 @@
-/calendar/UTC.calendar
-/calendar/USBANK_EXAMPLE.calendar
-/calendar/USNYSE_EXAMPLE.calendar

@@ -1,7 +1,0 @@
-# suppress inspection "WrongPropertyKeyValueDelimiter" for whole file
-foo = bar
-foom=barm
-foot=bart
-fo=ba
-
-finalize foo*
