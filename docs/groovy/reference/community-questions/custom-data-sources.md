@@ -62,7 +62,11 @@ Key features of dynamic tables:
 - Use the same `ArrayBackedColumnSource` as static tables.
 - Poll for updates on each Deephaven update cycle.
 - Track both current and previous values for incremental computation.
+<<<<<<< HEAD
 - Notify listeners using [`notifyListeners`](https://deephaven.io/core/javadoc/io/deephaven/engine/table/impl/QueryTable.html#notifyListeners(io.deephaven.engine.table.TableUpdate)).
+=======
+- Notify listeners using [notifyListeners](https://docs.deephaven.io/core/javadoc/io/deephaven/engine/table/impl/BaseTable.html#notifyListeners(io.deephaven.engine.rowset.RowSet,io.deephaven.engine.rowset.RowSet,io.deephaven.engine.rowset.RowSet)).
+>>>>>>> eefdf1a80 (.)
 
 Here's a simplified example of a dynamic table that updates periodically:
 
