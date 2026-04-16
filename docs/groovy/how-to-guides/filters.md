@@ -112,8 +112,8 @@ You can also filter for data that is not in a range by using the `!` operator or
 import io.deephaven.api.filter.Filter
 
 source = emptyTable(10).update("X = ii")
-resultNotInRangeDisjunctive = source.where("X < 2 || X >= 6")
-resultNotInRangeFilterOr = source.where(Filter.or(Filter.from("X < 2", "X >= 6")))
+resultNotInRangeDisjunctive = source.where("X < 2 || X > 6")
+resultNotInRangeFilterOr = source.where(Filter.or(Filter.from("X < 2", "X > 6")))
 resultNotInRange = source.where("!inRange(X, 2, 6)")
 ```
 
@@ -184,7 +184,7 @@ Disjunctive filters return only rows that match _any_ of the specified filters. 
   - [`where`](../reference/table-operations/filter/where.md)
   - [`whereIn`](../reference/table-operations/filter/where-in.md)
   - [`whereNotIn`](../reference/table-operations/filter/where-not-in.md)
-- Use [`Filter.or`](https://docs.deephaven.io/core/javadoc/io/deephaven/api/filter/Filter.html#or(io.deephaven.api.filter.Filter...)) (which returns a [`FilterOr`](https://docs.deephaven.io/core/javadoc/io/deephaven/api/filter/FilterOr.html)) or [`DisjunctiveFilter`](https://docs.deephaven.io/core/javadoc/io/deephaven/engine/table/impl/select/DisjunctiveFilter.html) to combine multiple filter clauses
+- Use [`Filter.or`](https://docs.deephaven.io/core/javadoc/io/deephaven/api/filter/Filter.html#or(io.deephaven.api.filter.Filter...)) or [`DisjunctiveFilter`](https://docs.deephaven.io/core/javadoc/io/deephaven/engine/table/impl/select/DisjunctiveFilter.html) to combine multiple filter clauses.
 
 The following examples demonstrate both approaches to disjunctive filtering:
 
@@ -201,12 +201,11 @@ resultOr = source.where("X < 2 || X >= 8")
 // Using Filter.or with multiple Filter objects
 resultFilterOr = source.where(Filter.or(Filter.from("X < 2", "X >= 8")))
 
-// Using DisjunctiveFilter directly with WhereFilter array
-filters = [
+// Using DisjunctiveFilter.of with WhereFilter arguments
+resultDisjunctiveFilter = source.where(DisjunctiveFilter.of(
     WhereFilterFactory.getExpression("X < 2"),
     WhereFilterFactory.getExpression("X >= 8")
-]
-resultDisjunctiveFilter = source.where(new DisjunctiveFilter(filters as io.deephaven.engine.table.impl.select.WhereFilter[]))
+))
 ```
 
 Using `Filter.or` or `DisjunctiveFilter` is particularly useful when you need to programmatically combine filters or when working with complex filter logic that would be difficult to express in a single query string.
