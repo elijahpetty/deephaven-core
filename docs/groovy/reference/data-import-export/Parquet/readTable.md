@@ -107,7 +107,7 @@ source = readTable("/data/examples/Pems/parquet/pems")
 
 ### Read from a nonlocal filesystem
 
-Deephaven current supports reading Parquet files from your local filesystem and [S3 storage](https://aws.amazon.com/s3/). The following code block uses special instructions to read a public Parquet dataset from an S3 bucket.
+Deephaven current supports reading Parquet files from your local filesystem and [S3 storage](https://aws.amazon.com/s3/). The following code block uses special instructions to read a public Parquet dataset from an S3 bucket. The dataset has 158 columns, so the example uses [`view`](../../table-operations/select/view.md) to keep only five of them. Deephaven only reads the Parquet columns a table uses, so this avoids downloading data for the other 153.
 
 ```groovy docker-config=minio order=drivestats
 import io.deephaven.parquet.table.ParquetInstructions
@@ -128,6 +128,7 @@ parquetInstructions = ParquetInstructions.builder()
                                 .build()
 
 drivestats = ParquetTools.readTable("s3://drivestats-parquet/drivestats/year=2023/month=02/2023-02-1.parquet", parquetInstructions)
+                         .view("date", "serial_number", "model", "capacity_bytes", "failure")
 ```
 
 Additionally, the `S3.maxFragmentSize` [configuration property](../../../how-to-guides/configuration/docker-application.md) can be set upon server startup. It sets the buffer size when reading Parquet from S3. The default is 5 MB. The buffer size should be set based on the largest expected fragment.

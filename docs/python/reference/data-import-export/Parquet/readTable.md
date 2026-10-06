@@ -193,7 +193,7 @@ shutil.copyfile("/data/grades/part1.parquet", "/data/grades/part3.parquet")
 
 ### Read from a nonlocal filesystem
 
-Deephaven currently supports reading Parquet files from your local filesystem and [S3 storage](https://aws.amazon.com/s3/). The following code block uses special instructions to read a public Parquet dataset from an S3 bucket.
+Deephaven currently supports reading Parquet files from your local filesystem and [S3 storage](https://aws.amazon.com/s3/). The following code block uses special instructions to read a public Parquet dataset from an S3 bucket. The dataset has 158 columns, so the example uses [`view`](../../table-operations/select/view.md) to keep only five of them. Deephaven only reads the Parquet columns a table uses, so this avoids downloading data for the other 153.
 
 ```python docker-config=minio order=drivestats
 from deephaven import parquet
@@ -210,7 +210,7 @@ drivestats = parquet.read(
         fragment_size=65536,
         read_timeout=timedelta(seconds=10),
     ),
-)
+).view(["date", "serial_number", "model", "capacity_bytes", "failure"])
 ```
 
 When reading from [AWS S3](https://aws.amazon.com/s3/), you must _always_ specify instructions for doing so via [`S3Instructions`](/core/pydoc/code/deephaven.experimental.s3.html#deephaven.experimental.s3.S3Instructions). The following input parameters can be used to construct these special instructions:
